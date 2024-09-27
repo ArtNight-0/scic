@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('auth/login');
@@ -10,9 +11,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/envirovment', function () {
-    return view('envirovment');
-})->middleware(['auth', 'verified'])->name('envirovment');
+Route::get('/client', function (Request $request) {
+    return view('client',[
+        'clients' => $request->user()->clients
+    ]);
+})->middleware(['auth', 'verified'])->name('client');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
