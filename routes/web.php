@@ -12,7 +12,6 @@ use Laravel\Passport\Http\Controllers\AuthorizationController;
 // Livewire
 use App\Livewire\Dashboard;
 
-
 use Laravel\Passport\Http\Controllers\TokenController;
 use Laravel\Passport\Http\Controllers\ApproveAuthorizationController;
 use Laravel\Passport\Http\Controllers\DenyAuthorizationController;
