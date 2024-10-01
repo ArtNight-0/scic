@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 
+use App\Models\Passport\Client;
+use Laravel\Passport\AuthCode as PassportAuthCode;
+use Laravel\Passport\PersonalAccessClient as PassportPersonalAccessClient;
+use Laravel\Passport\RefreshToken as PassportRefreshToken;
+use Laravel\Passport\Token as PassportToken;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Passport::useTokenModel(PassportToken::class);
+        Passport::useRefreshTokenModel(PassportRefreshToken::class);
+        Passport::useAuthCodeModel(PassportAuthCode::class);
+        Passport::useClientModel(Client::class);
+        Passport::usePersonalAccessClientModel(PassportPersonalAccessClient::class);
 
         Passport::loadKeysFrom(base_path('storage'));
         Passport::hashClientSecrets();
@@ -29,6 +40,10 @@ class AppServiceProvider extends ServiceProvider
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));
         Passport::personalAccessTokensExpireIn(now()->addMonths(6));
+
+        
+        
+
         Gate::define('admin', function ($user) {
             return $user->role === 'admin';
         });

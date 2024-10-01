@@ -1,11 +1,16 @@
 <?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Client extends Model
+ 
+namespace App\Models\Passport;
+ 
+use Laravel\Passport\Client as BaseClient;
+ 
+class Client extends BaseClient
 {
-    use HasFactory;
+    /**
+     * Determine if the client should skip the authorization prompt.
+     */
+    public function skipsAuthorization(): bool
+    {
+        return $this->firstParty();
+    }
 }

@@ -14,45 +14,47 @@ class ClientController extends Controller
     {
         // Generate and store state in session
         $request->session()->put('state', $state = Str::random(40));
+
         // Build query string for OAuth request
-        // dd('Generated state:', $state);
         $query = http_build_query([
-            'client_id' => '9d2073f2-db00-443b-a52b-6eade1e65ad4',
-            'redirect_uri' => 'http://scic.test/auth/callback',
+            'client_id' => '9d235b0d-a377-4a94-99f0-305c66cb4d87',
+            'redirect_uri' => 'http://laravelfilla.test/auth/callback',
             'response_type' => 'code',
             'scope' => '',
             'state' => $state,
-            'prompt' => 'consent', // "none", "consent", or "login"
+            'prompt'=>'consent'
         ]);
-        
-        // Redirect user to the OAuth authorization page
-        return redirect('http://scic.test/oauth/authorize?' . $query);
+
+        // Redirect to the OAuth authorization page
+        return redirect('http://scic.test/auth/authorize?' . $query);
+        // dd($query);
     }
     
-    // Handle callback from the OAuth server
     public function callback(Request $request)
     {
-        // Get state from session and check if it matches the returned state
-        $state = $request->session()->pull('state');
-        
-        throw_unless(
-            strlen($state) > 0 && $state === $request->state,
-            InvalidArgumentException::class,
-            'Invalid state value.'
-        );
-        
-        // Send a request to get an access token
-        $response = Http::asForm()->post('http://scic.test/oauth/token', [
+        // Verifikasi state
+        $stateInSession = $request->session()->pull('state');
+        $stateInRequest = $request->input('state');
+
+        if (!$stateInSession || $stateInSession !== $stateInRequest) {
+            throw new InvalidArgumentException('State tidak valid.');
+        }
+
+        // Tukar authorization code dengan access token
+        $response = Http::asForm()->post('http://scic.test/auth/token', [
             'grant_type' => 'authorization_code',
-            'client_id' => '9d2073f2-db00-443b-a52b-6eade1e65ad4',
-            'client_secret' => '$2y$10$KmeNWtg8dSF2Zb7/j2o2nOggEUWgLE03zLPdoisCj2ioY906WrnV2',
-            'redirect_uri' => 'http://scic.test/auth/callback',
-            'code' => $request->code,
+            'client_id' => '9d235b0d-a377-4a94-99f0-305c66cb4d87',
+            'client_secret' => 'sqo7O2gpP3RSO7UJsXrJtNAmKx4sQsb7Rly7y8eE',
+            'redirect_uri' => 'http://laravelfilla.test/auth/callback',
+            'code' => $request->input('code'),
         ]);
 
-        // Handle the response or redirect the user after successful authentication
-                // return $response();
+        // Simpan access token di session atau user model
+        $tokenData = $response->json();
+        session(['access_token' => $tokenData['access_token']]);
 
-        // return redirect('http://scic.test/dashboard');
+        // Redirect ke halaman yang dilindungi
+        return redirect('/dashboard');
     }
+
 }
