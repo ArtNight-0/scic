@@ -34,5 +34,14 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'semarang_sso' => [
+        'client_id' => env('SEMARNAG_SSO_CLIENT_ID'),
+        'client_secret' => env('SEMARNAG_SSO_CLIENT_SECRET'),
+        'redirect' => env('SEMARNAG_SSO_REDIRECT_URI'),
+        'auth_url' => 'https://sso.semarangkota.go.id/oauth/authorize',
+        'token_url' => 'https://sso.semarangkota.go.id/oauth/token',
+        'user_info_url' => 'https://sso.semarangkota.go.id/api/user',
+    ],
+
 
 ];

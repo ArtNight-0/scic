@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Laravel\Passport\Http\Controllers\AuthorizationController;
 
+// Livewire
+use App\Livewire\Dashboard;
+
 
 use Laravel\Passport\Http\Controllers\TokenController;
 use Laravel\Passport\Http\Controllers\ApproveAuthorizationController;
@@ -28,12 +31,11 @@ Route::get('/auth', function (Request $request) {
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/client', function (Request $request) {
-    return view('client',[
-        'clients' => $request->user()->clients->all()
+    return view('client', [
+        'clients' => $request->user()->clients->all(),
     ]);
 })->middleware(['auth', 'verified'])->name('client');
 
@@ -45,13 +47,15 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.users');
 });
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
 //SSO
 Route::get('/oauth/redirect', [ClientController::class, 'redirect'])->name('oauth.redirect');
 Route::get('/oauth/callback', [ClientController::class, 'callback'])->name('oauth.callback');

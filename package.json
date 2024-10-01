@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@preline/datatable": "^2.5.0",
+        "chart.js": "^4.4.4",
         "datatables.net-dt": "^2.1.7",
         "preline": "^2.4.1"
     }
