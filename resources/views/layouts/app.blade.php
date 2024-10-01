@@ -1,40 +1,60 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart City Platform</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- CSS -->
+    <link rel="shortcut icon" href="{{ asset('assets/img/Logo/icon.png') }}" type="image/x-icon">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+    <!-- END CSS -->
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
+    <script src="{{ asset('assets/js/charts-lines.js') }}" defer></script>
+    <script src="{{ asset('assets/js/charts-pie.js') }}" defer></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
+
+    @livewireStyles
+
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('layouts.navigation')
-        @include('layouts.sidebar')
+<body>
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
 
-        <!-- Page Heading -->
-        @isset($header)
-            <header class="bg-white dark:bg-gray-800 shadow px-4 sm:px-6 md:px-8 lg:ps-72 ">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset
+        <!-- Desktop sidebar -->
+        {{-- @include('layouts.sidebar') --}}
+        <!-- Mobile sidebar -->
 
-        <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+        <!-- Backdrop (Mobile Sidebar) -->
+        {{-- @include('layouts.sidebarresponsive') --}}
+
+        <div class="flex flex-col flex-1 w-full">
+
+            @include('layouts.header')
+
+            <main class="h-full overflow-y-auto">
+
+                @yield('content')
+
+            </main>
+
+        </div>
+
     </div>
+
+    @livewireScripts
+
 </body>
 
 </html>

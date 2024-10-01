@@ -1,19 +1,29 @@
-<aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+<div x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
+    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+</div>
+<aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
+    x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
+    x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
+    @keydown.escape="closeSideMenu">
     <div class="py-4 text-gray-500 dark:text-gray-400">
         <img class="w-24 h-24 rounded-full mx-auto py-4" src="{{ asset('assets/img/Logo/logo.png') }}" alt="" width="50"
             height="50">
-        <a class="mt-4 ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-            Smart City Platforms
+        <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+            smart City Platform
         </a>
 
         <div class="px-6 my-6">
-            <span
-                class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            <button
+                class="flex w-full items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Navigasi
-            </span>
+            </button>
         </div>
-
-        <ul class="mt-[-20px]">
+        <ul class="mt-6">
             <li class="relative px-6 py-3">
                 <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                     aria-hidden="true"></span>
@@ -33,7 +43,7 @@
             <li class="relative px-6 py-3">
                 <button
                     class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    @click="togglePagesMenuEnvironment" aria-haspopup="true">
+                    @click="togglePagesMenuEnvResponsive" aria-haspopup="true">
                     <span class="inline-flex items-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -43,7 +53,7 @@
                                 d="M2.59 12.34a9.02 9.02 0 0 1 3.61-5.22c.4-.28.72-.56.97-.83.75-.83.87-1.53 2.58-1.42h.25c.96.06 1.82.34 2.58.83 1.58.97 1.83 2.22 1.61 3.22-.12.49-.4.93-.83 1.39-.83.83-1.9 1.67-3.06 1.5-.92-.11-1.5-.28-1.97.25-.28.34-.39.78-.25 1.25.28.97 1.25 1.61 2.08 2.28.9.72 1.86 1.55 1.92 3 .06 1.53-.66 2.64-1.25 3.28h0a9 9 0 0 1-8.58-7.95z">
                             </path>
                         </svg>
-                        <span class="ml-4">Enviroment</span>
+                        <span class="ml-4">Environment</span>
                     </span>
                     <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
@@ -51,7 +61,7 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <template x-if="isPagesMenuOpen">
+                <template x-if="isPagesMenuOpenEnvResponsive">
                     <ul x-transition:enter="transition-all ease-in-out duration-300"
                         x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
                         x-transition:leave="transition-all ease-in-out duration-300"
@@ -91,7 +101,7 @@
             <li class="relative px-6 py-3">
                 <button
                     class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    @click="togglePagesMenuHealth" aria-haspopup="true">
+                    @click="togglePagesMenuHealthRes" aria-haspopup="true">
                     <span class="inline-flex items-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -108,7 +118,7 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <template x-if="isPagesMenuOpenHealth">
+                <template x-if="isPagesMenuOpenHealthRes">
                     <ul x-transition:enter="transition-all ease-in-out duration-300"
                         x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
                         x-transition:leave="transition-all ease-in-out duration-300"
@@ -117,7 +127,9 @@
                         aria-label="submenu">
                         <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="#">Summary</a>
+                            <a class="w-full" href="#">
+                                Summary
+                            </a>
                         </li>
                         <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
@@ -141,7 +153,7 @@
             <li class="relative px-6 py-3">
                 <button
                     class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    @click="togglePagesMenuReporting" aria-haspopup="true">
+                    @click="togglePagesMenuReportRes" aria-haspopup="true">
                     <span class="inline-flex items-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -157,7 +169,7 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <template x-if="isPagesMenuOpenReporting">
+                <template x-if="isPagesMenuOpenReportRes">
                     <ul x-transition:enter="transition-all ease-in-out duration-300"
                         x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
                         x-transition:leave="transition-all ease-in-out duration-300"
@@ -166,12 +178,14 @@
                         aria-label="submenu">
                         <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="#">Summary</a>
+                            <a class="w-full" href="#">
+                                Summary
+                            </a>
                         </li>
                         <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <a class="w-full" href="#">
-                                Table List
+                                Tabel List
                             </a>
                         </li>
                     </ul>
@@ -179,7 +193,7 @@
             </li>
             <li class="relative px-6 py-3">
                 <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="#">
+                    href="modals.html">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -193,17 +207,16 @@
         </ul>
 
         <div class="px-6 my-6">
-            <span
-                class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            <button
+                class="flex w-full items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Admin Modules
-            </span>
+            </button>
         </div>
-
         <ul>
             <li class="relative px-6 py-3">
                 <button
                     class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    @click="togglePagesMenuPengaturan" aria-haspopup="true">
+                    @click="togglePagesMenuPengaturanRes" aria-haspopup="true">
                     <span class="inline-flex items-center">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -221,7 +234,7 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <template x-if="isPagesMenuOpenPengaturan">
+                <template x-if="isPagesMenuOpenPengaturanRes">
                     <ul x-transition:enter="transition-all ease-in-out duration-300"
                         x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
                         x-transition:leave="transition-all ease-in-out duration-300"
@@ -254,6 +267,5 @@
                 </template>
             </li>
         </ul>
-
     </div>
 </aside>
