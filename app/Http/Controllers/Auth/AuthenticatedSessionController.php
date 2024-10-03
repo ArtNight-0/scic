@@ -38,10 +38,10 @@ class AuthenticatedSessionController extends Controller
             $user = Auth::user();
 
             // Create Personal Access Token
-            $token = $user->createToken('Personal Access Token')->accessToken;
+            // $token = $user->createToken('Personal Access Token')->accessToken;
 
             // Store token in the session to be accessible for future requests
-            session(['personal_access_token' => $token]);
+            // session(['personal_access_token' => $token]);
 
             return redirect()->intended('/dashboard'); // Redirect ke halaman setelah login
         }

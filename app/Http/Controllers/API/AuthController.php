@@ -12,15 +12,14 @@ use Hash;
 
 class AuthController extends Controller
 {
-    
-       public function register(Request $request)
+    public function register(Request $request)
     {
         $request->validate([
             'name'     => 'required|min:4',
             'email'    => 'required|email',
             'password' => 'required|min:8',
         ]);
- 
+
         $dt        = Carbon::now();
         $join_date = $dt->toDayDateTimeString();
 
@@ -52,11 +51,11 @@ class AuthController extends Controller
             $email     = $request->email;
             $password  = $request->password;
 
-            if (Auth::attempt(['email' => $email,'password' => $password])) 
+            if (Auth::attempt(['email' => $email,'password' => $password]))
             {
                 $user = Auth::User();
                 $accessToken = $user->createToken($user->email)->accessToken;
-    
+
                 $data = [];
                 $data['response_code']  = '200';
                 $data['status']         = 'success';
@@ -82,7 +81,7 @@ class AuthController extends Controller
     }
 
     /** user info */
-    public function userInfo() 
+    public function userInfo()
     {
         try {
             $userDataList = User::latest()->paginate(10);

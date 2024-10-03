@@ -9,14 +9,17 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 // Livewire
+use App\Livewire\DashboardManagement;
 use App\Livewire\Dashboard;
-
+use App\Livewire\Users;
 
 Route::get('/', function () {
     return view('auth/login');
 });
 
+Route::get('/manajemen-dashboard', DashboardManagement::class)->middleware(['auth','verified'])->name('dashboard-managment');
 Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/user', Users::class)->middleware(['auth', 'verified'])->name('user');
 
 Route::get('/client', function (Request $request) {
     return view('client', [
@@ -48,3 +51,4 @@ Route::get('/redirect', [ClientController::class, 'redirect']);
 // Route for handling the callback from the OAuth server
 Route::get('/auth/callback', [ClientController::class, 'callback']);
 
+// Tes sso Google
