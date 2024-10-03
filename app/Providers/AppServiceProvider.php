@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Passport::token()
         Passport::useTokenModel(PassportToken::class);
         Passport::useRefreshTokenModel(PassportRefreshToken::class);
         Passport::useAuthCodeModel(PassportAuthCode::class);
@@ -40,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));
         Passport::personalAccessTokensExpireIn(now()->addMonths(6));
+            Passport::enablePasswordGrant();
+
 
         
         

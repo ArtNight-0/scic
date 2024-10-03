@@ -17,8 +17,8 @@ class ClientController extends Controller
 
         // Build query string for OAuth request
         $query = http_build_query([
-            'client_id' => '9d235b0d-a377-4a94-99f0-305c66cb4d87',
-            'redirect_uri' => 'http://laravelfilla.test/auth/callback',
+            'client_id' => env('OAUTH_CLIENT_ID'),
+            'redirect_uri' => env('OAUTH_REDIRECT_URI'),
             'response_type' => 'code',
             'scope' => '',
             'state' => $state,
@@ -43,9 +43,9 @@ class ClientController extends Controller
         // Tukar authorization code dengan access token
         $response = Http::asForm()->post('http://scic.test/auth/token', [
             'grant_type' => 'authorization_code',
-            'client_id' => '9d235b0d-a377-4a94-99f0-305c66cb4d87',
-            'client_secret' => 'sqo7O2gpP3RSO7UJsXrJtNAmKx4sQsb7Rly7y8eE',
-            'redirect_uri' => 'http://laravelfilla.test/auth/callback',
+            'client_id' => env('OAUTH_CLIENT_ID'),
+            'client_secret' => env('OAUTH_CLIENT_SECRET'),
+            'redirect_uri' => env('OAUTH_REDIRECT_URI'),
             'code' => $request->input('code'),
         ]);
 

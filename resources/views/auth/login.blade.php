@@ -41,7 +41,7 @@
                 </a>
             @endif
             <x-sso-button class="ms-3">
-                <a href="{{ route('oauth.redirect') }}" class="btn btn-primary">
+                <a href="{{ route('sso.login') }}" class="btn btn-primary">
                     Login with SSO
                 </a>
             </x-sso-button>

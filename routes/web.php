@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SSO\SSOController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -11,7 +12,8 @@ use Laravel\Passport\Http\Controllers\AuthorizationController;
 
 // Livewire
 use App\Livewire\Dashboard;
-
+use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\Http\Controllers\AccessTokenController;
 use Laravel\Passport\Http\Controllers\TokenController;
 use Laravel\Passport\Http\Controllers\ApproveAuthorizationController;
 use Laravel\Passport\Http\Controllers\DenyAuthorizationController;
@@ -19,15 +21,15 @@ use Laravel\Passport\Http\Controllers\DenyAuthorizationController;
 Route::get('/', function () {
     return view('auth/login');
 });
-Route::get('/auth', function (Request $request) {
-    $client = $request->user()->clients->first(); // Assuming the user has multiple clients
-    return view('vendor.passport.authorize', [
-        'client' => $client,
-        'scopes' => [],  // You can pass the required scopes here
-        'authToken' => Str::random(40),  // Replace with actual auth token
-        'request' => $request
-    ]);
-});
+// Route::get('/auth', function (Request $request) {
+//     $client = $request->user()->clients; 
+//     return view('vendor.passport.authorize', [
+//         'client' => $client,
+//         'scopes' => [],  
+//         'authToken' => Str::random(40),  
+//         'request' => $request
+//     ]);
+// });
 
 
 Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
@@ -56,16 +58,23 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 //SSO
-Route::get('/oauth/redirect', [ClientController::class, 'redirect'])->name('oauth.redirect');
-Route::get('/oauth/callback', [ClientController::class, 'callback'])->name('oauth.callback');
+Route::get('/redirect', [ClientController::class, 'redirect'])->name('oauth.redirect');
+Route::get('/auth/callback', [ClientController::class, 'callback'])->name('oauth.callback');
 
 // Route::get('/auth/authorize', [AuthorizationController::class, 'authorizeRequest'])->name('authorize');
 
 
 Route::group(['prefix' => 'oauth', 'middleware' => ['web']], function () {
     Route::get('/authorize', [AuthorizationController::class, 'authorize'])->name('passport.authorizations.authorize');
-    Route::post('/token', [TokenController::class, 'issueToken'])->name('passport.token');
+    Route::post('/token', [AccessTokenController::class, 'issueToken'])->name('passport.token');
     Route::post('/approve', [ApproveAuthorizationController::class, 'approve'])->name('passport.authorizations.approve');
     Route::post('/deny', [DenyAuthorizationController::class, 'deny'])->name('passport.authorizations.deny');
 });
+//SSO Controller
+Route::get("/sso/login", [SSOController::class, 'getLogin'])->name("sso.login");
+Route::get("/callback", [SSOController::class, 'getCallback'])->name("sso.callback");
+Route::get("/sso/connect", [SSOController::class, 'connectUser'])->name("sso.connect");
+
+
+// Auth::routes(['register' => false, 'reset' => false ]);
 
