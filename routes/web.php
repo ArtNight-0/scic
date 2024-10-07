@@ -32,7 +32,6 @@ Route::get('/', function () {
 // });
 
 
-Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/client', function (Request $request) {
     return view('client', [
@@ -74,6 +73,11 @@ Route::group(['prefix' => 'oauth', 'middleware' => ['web']], function () {
 Route::get("/sso/login", [SSOController::class, 'getLogin'])->name("sso.login");
 Route::get("/callback", [SSOController::class, 'getCallback'])->name("sso.callback");
 Route::get("/sso/connect", [SSOController::class, 'connectUser'])->name("sso.connect");
+
+Route::middleware(['checkSSOToken'])->group(function () {
+    Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
+
+});
 
 
 // Auth::routes(['register' => false, 'reset' => false ]);

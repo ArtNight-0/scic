@@ -23,8 +23,8 @@ class SSOController extends Controller
             "state" => $state,
             "prompt" => true
         ]);
-        // dd($query);
-        return redirect("http://laravel_sso_server.test/oauth/authorize?" . $query);
+        // dd("masuk login client");
+        return redirect("http://sso-dashboard.ramand.my.id/oauth/authorize?" . $query);
     }
     public function getCallback(Request $request)
     {
@@ -33,7 +33,7 @@ class SSOController extends Controller
         throw_unless(strlen($state) > 0 && $state == $request->state, InvalidArgumentException::class);
 
         $response = Http::asForm()->post(
-            "http://laravel_sso_server.test/oauth/token",
+            "http://sso-dashboard.ramand.my.id/oauth/token",
             [
                 "grant_type" => "authorization_code",
                 "client_id" => "9d25e2db-8871-468b-afa3-c9621a5b2406",
@@ -54,7 +54,7 @@ class SSOController extends Controller
         $response = Http::withHeaders([
             "Accept" => "application/json",
             "Authorization" => "Bearer " . $access_token
-        ])->get("http://laravel_sso_server.test/api/user");
+        ])->get("http://sso-dashboard.ramand.my.id/api/user");
 
         $userArray = $response->json();
 
