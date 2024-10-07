@@ -205,7 +205,7 @@
         </a>
 
         <!-- Card -->
-        <a href="">
+        <a href="http://167.205.67.248:8501/">
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 h-80">
                 <div>
