@@ -16,8 +16,8 @@ class SSOController extends Controller
     {
         $request->session()->put("state", $state =  Str::random(40));
         $query = http_build_query([
-            "client_id" =>  "9d25e2db-8871-468b-afa3-c9621a5b2406",
-            "redirect_uri" => "http://scic.test/callback",
+            "client_id" =>  "9d2fc325-1915-4ed1-8ace-c421b5ed2a70",
+            "redirect_uri" => "http://dashboard-sso.ramand.my.id/callback",
             "response_type" => "code",
             "scope" => "view-user",
             "state" => $state,
@@ -36,9 +36,9 @@ class SSOController extends Controller
             "http://sso-dashboard.ramand.my.id/oauth/token",
             [
                 "grant_type" => "authorization_code",
-                "client_id" => "9d25e2db-8871-468b-afa3-c9621a5b2406",
-                "client_secret" => "Yx2oNJOrGVypDYWzYhRnMJLbhiOFrcVAoMj1KRvf",
-                "redirect_uri" => "http://scic.test/callback",
+                "client_id" => "9d2fc325-1915-4ed1-8ace-c421b5ed2a70",
+                "client_secret" => "TIm80HL2yCYqkHopnTLGwcwKwBftFVsPQuIc6udx",
+                "redirect_uri" => "http://dashboard-sso.ramand.my.id/callback",
                 "code" => $request->code
             ]
         );
