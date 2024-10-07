@@ -11,7 +11,9 @@ use Illuminate\Support\Str;
 use Laravel\Passport\Http\Controllers\AuthorizationController;
 
 // Livewire
+use App\Livewire\DashboardManagement;
 use App\Livewire\Dashboard;
+use App\Livewire\Users;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 use Laravel\Passport\Http\Controllers\TokenController;
@@ -22,16 +24,19 @@ Route::get('/', function () {
     return view('auth/login');
 });
 // Route::get('/auth', function (Request $request) {
-//     $client = $request->user()->clients; 
+//     $client = $request->user()->clients;
 //     return view('vendor.passport.authorize', [
 //         'client' => $client,
-//         'scopes' => [],  
-//         'authToken' => Str::random(40),  
+//         'scopes' => [],
+//         'authToken' => Str::random(40),
 //         'request' => $request
 //     ]);
 // });
 
 
+Route::get('/manajemen-dashboard', DashboardManagement::class)->middleware(['auth','verified'])->name('dashboard-managment');
+Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/user', Users::class)->middleware(['auth', 'verified'])->name('user');
 
 Route::get('/client', function (Request $request) {
     return view('client', [
@@ -82,3 +87,4 @@ Route::middleware(['checkSSOToken'])->group(function () {
 
 // Auth::routes(['register' => false, 'reset' => false ]);
 
+// Tes sso Google
