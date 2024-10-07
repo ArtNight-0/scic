@@ -74,10 +74,10 @@ class SSOController extends Controller
             $user->name = $userArray['name'];
             $user->email = $userArray['email'];
             $user->email_verified_at = $userArray['email_verified_at'];
-            
+
             // Tidak menyimpan password, karena login bergantung pada server SSO
             // $user->password = null;  // atau bisa dibiarkan kosong
-            
+
             $user->save();
         }
 
@@ -94,7 +94,7 @@ class SSOController extends Controller
         //         $user->name = $userArray['name'];
         //         $user->email = $userArray['email'];
         //         $user->email_verified_at = $userArray['email_verified_at'];
-                
+
         //         // Tambahkan password acak yang dienkripsi
         //         $user->password = bcrypt(Str::random(16));
 

@@ -13,25 +13,22 @@ use Laravel\Passport\Http\Controllers\AuthorizationController;
 // Livewire
 use App\Livewire\DashboardManagement;
 use App\Livewire\Dashboard;
-<<<<<<< HEAD
 use App\Livewire\Users;
-=======
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 use Laravel\Passport\Http\Controllers\TokenController;
 use Laravel\Passport\Http\Controllers\ApproveAuthorizationController;
 use Laravel\Passport\Http\Controllers\DenyAuthorizationController;
->>>>>>> d6325ff36598620be5fefcbd54634dcb27a860e4
 
 Route::get('/', function () {
     return view('auth/login');
 });
 // Route::get('/auth', function (Request $request) {
-//     $client = $request->user()->clients; 
+//     $client = $request->user()->clients;
 //     return view('vendor.passport.authorize', [
 //         'client' => $client,
-//         'scopes' => [],  
-//         'authToken' => Str::random(40),  
+//         'scopes' => [],
+//         'authToken' => Str::random(40),
 //         'request' => $request
 //     ]);
 // });
