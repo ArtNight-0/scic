@@ -1,24 +1,29 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+
+use Illuminate\Http\Request;
+
+use Laravel\Passport\Http\Controllers\AuthorizationController;
+use Laravel\Passport\Http\Controllers\AccessTokenController;
+use Laravel\Passport\Http\Controllers\TokenController;
+use Laravel\Passport\Http\Controllers\ApproveAuthorizationController;
+use Laravel\Passport\Http\Controllers\DenyAuthorizationController;
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SSO\SSOController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
-use Laravel\Passport\Http\Controllers\AuthorizationController;
 
 // Livewire
 use App\Livewire\DashboardManagement;
 use App\Livewire\Dashboard;
 use App\Livewire\Users;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Passport\Http\Controllers\AccessTokenController;
-use Laravel\Passport\Http\Controllers\TokenController;
-use Laravel\Passport\Http\Controllers\ApproveAuthorizationController;
-use Laravel\Passport\Http\Controllers\DenyAuthorizationController;
+use App\Livewire\ApiUserComponent;
+
 
 Route::get('/', function () {
     return view('auth/login');
@@ -33,8 +38,10 @@ Route::get('/', function () {
 //     ]);
 // });
 
+Route::get('/manajemen-user', ApiUserComponent::class)->middleware(['auth', 'verified'])->name('management-user');
 
 Route::get('/manajemen-dashboard', DashboardManagement::class)->middleware(['auth','verified'])->name('dashboard-managment');
+
 Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/user', Users::class)->middleware(['auth', 'verified'])->name('user');
 

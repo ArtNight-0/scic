@@ -28,25 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Passport::token()
-        Passport::useTokenModel(PassportToken::class);
-        Passport::useRefreshTokenModel(PassportRefreshToken::class);
-        Passport::useAuthCodeModel(PassportAuthCode::class);
-        Passport::useClientModel(Client::class);
-        Passport::usePersonalAccessClientModel(PassportPersonalAccessClient::class);
-
-        Passport::loadKeysFrom(base_path('storage'));
-        Passport::hashClientSecrets();
-
-        Passport::tokensExpireIn(now()->addDays(15));
-        Passport::refreshTokensExpireIn(now()->addDays(30));
-        Passport::personalAccessTokensExpireIn(now()->addMonths(6));
-            Passport::enablePasswordGrant();
-
-
-        
-        
-
         Gate::define('admin', function ($user) {
             return $user->role === 'admin';
         });
