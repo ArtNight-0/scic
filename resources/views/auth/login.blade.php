@@ -98,11 +98,12 @@
 
                 <!-- Wrapper untuk button -->
                 <div class="text-md flex flex-col md:flex-row gap-4 mt-6 mx-auto w-full max-w-md items-center my-6">
-                    {{-- <button style="height: 50px;"
-                        class="bg-blue-600 hover:bg-blue-900 transition duration-300 ease-in-out w-full md:w-[70%] lg:w-[60%] max-w-[250px] h-8 text-[11px] text-white rounded-xl p-2 mx-auto"><span
-                            class="font-inter bold" style="font-size: 1rem;">Login Menggunakan SSO</span></button> --}}
+                    <a href="{{ route('sso.login') }}"
+                        class="bg-blue-600 hover:bg-blue-900 transition duration-300 ease-in-out w-full md:w-[70%] lg:w-[60%] max-w-[250px] h-16 text-[11px] text-white rounded-xl p-2 mx-auto flex items-center justify-center">
+                            <span class="font-inter bold" style="font-size: 1rem;">Login Menggunakan SSO</span>
+                        </a>
                     <button style="height: 50px;"
-                        class="bg-blue-600 hover:bg-blue-900 transition duration-300 ease-in-out w-full md:w-[30%] lg:w-[30%] h-8 text-[11px] text-white rounded-xl p-2 mx-auto"><span
+                        class="bg-red-600 hover:bg-red-900 transition duration-300 ease-in-out w-full md:w-[30%] lg:w-[30%] h-8 text-[11px] text-white rounded-xl p-2 mx-auto"><span
                             class="font-inter bold" style="font-size: 1rem;">Login</span></button>
                 </div>
             </form>

@@ -188,7 +188,7 @@
         </a>
 
         <!-- Card -->
-        <a href="">
+        <a href="https://smart-building.ptmsp.id/login">
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 h-80">
                 <div>
