@@ -71,21 +71,21 @@ class SSOController extends Controller
         }
         Auth::login($user);
         return redirect(route("dashboard"));
-        //  // Mencari user di database berdasarkan email
-        //     $user = User::where("email", $email)->first();
+         // Mencari user di database berdasarkan email
+            $user = User::where("email", $email)->first();
 
-        //     // Jika user tidak ditemukan, buat user baru
-        //     if (!$user) {
-        //         $user = new User;
-        //         $user->name = $userArray['name'];
-        //         $user->email = $userArray['email'];
-        //         $user->email_verified_at = $userArray['email_verified_at'];
+            // Jika user tidak ditemukan, buat user baru
+            if (!$user) {
+                $user = new User;
+                $user->name = $userArray['name'];
+                $user->email = $userArray['email'];
+                $user->email_verified_at = $userArray['email_verified_at'];
 
-        //         // Tambahkan password acak yang dienkripsi
-        //         $user->password = bcrypt(Str::random(16));
+                // Tambahkan password acak yang dienkripsi
+                $user->password = bcrypt(Str::random(16));
 
-        //         $user->save();
-        //     }
+                $user->save();
+            }
     }
 
 }
