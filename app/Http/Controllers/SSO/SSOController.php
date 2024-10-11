@@ -16,15 +16,15 @@ class SSOController extends Controller
     {
         $request->session()->put("state", $state =  Str::random(40));
         $query = http_build_query([
-            "client_id" =>  "9d25e2db-8871-468b-afa3-c9621a5b2406",
-            "redirect_uri" => "http://scic.test/callback",
+            "client_id" =>  config("auth.client_id"),
+            "redirect_uri" => config("auth.callback"),
             "response_type" => "code",
-            "scope" => "view-user",
+            "scope" => config("auth.scopes"),
             "state" => $state,
             "prompt" => true
         ]);
-        // dd($query);
-        return redirect("http://laravel_sso_server.test/oauth/authorize?" . $query);
+        // dd("masuk login client");
+        return redirect(config("auth.sso_host")."/oauth/authorize?" . $query);
     }
     public function getCallback(Request $request)
     {
@@ -33,12 +33,12 @@ class SSOController extends Controller
         throw_unless(strlen($state) > 0 && $state == $request->state, InvalidArgumentException::class);
 
         $response = Http::asForm()->post(
-            "http://laravel_sso_server.test/oauth/token",
+            config("auth.sso_host")."/oauth/token",
             [
                 "grant_type" => "authorization_code",
-                "client_id" => "9d25e2db-8871-468b-afa3-c9621a5b2406",
-                "client_secret" => "Yx2oNJOrGVypDYWzYhRnMJLbhiOFrcVAoMj1KRvf",
-                "redirect_uri" => "http://scic.test/callback",
+                "client_id" => config("auth.client_id"),
+                "client_secret" => "Y9hYGJM4a3lbK7ruW8K8eGImkrmP2JEpsLjgm6rM",
+                "redirect_uri" => config("auth.callback"),
                 "code" => $request->code
             ]
         );
@@ -54,7 +54,7 @@ class SSOController extends Controller
         $response = Http::withHeaders([
             "Accept" => "application/json",
             "Authorization" => "Bearer " . $access_token
-        ])->get("http://laravel_sso_server.test/api/user");
+        ])->get(config("auth.sso_host")."/api/user");
 
         $userArray = $response->json();
 

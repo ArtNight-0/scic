@@ -69,8 +69,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 //SSO
-Route::get('/redirect', [ClientController::class, 'redirect'])->name('oauth.redirect');
-Route::get('/auth/callback', [ClientController::class, 'callback'])->name('oauth.callback');
+// Route::get('/redirect', [ClientController::class, 'redirect'])->name('oauth.redirect');
+// Route::get('/auth/callback', [ClientController::class, 'callback'])->name('oauth.callback');
 
 // Route::get('/auth/authorize', [AuthorizationController::class, 'authorizeRequest'])->name('authorize');
 
