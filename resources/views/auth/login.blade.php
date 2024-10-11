@@ -99,7 +99,7 @@
                 <!-- Wrapper untuk button -->
                 <div class="text-md flex flex-col md:flex-row gap-4 mt-6 mx-auto w-full max-w-md items-center my-6">
                     <a href="{{ route('sso.login') }}"
-                        class="bg-blue-600 hover:bg-blue-900 transition duration-300 ease-in-out w-full md:w-[70%] lg:w-[60%] max-w-[250px] h-16 text-[11px] text-white rounded-xl p-2 mx-auto flex items-center justify-center">
+                        class="bg-blue-600 hover:bg-blue-900 transition duration-300 ease-in-out w-full md:w-[70%] lg:w-[60%] max-w-[250px] text-[11px] text-white rounded-xl p-2 mx-auto flex items-center justify-center" style="height: 48px">
                             <span class="font-inter bold" style="font-size: 1rem;">Login Menggunakan SSO</span>
                         </a>
                     <button style="height: 50px;"
