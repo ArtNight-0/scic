@@ -188,7 +188,7 @@
         </a>
 
         <!-- Card -->
-        <a href="https://smart-building.ptmsp.id/login">
+        <a href="https://smart-building.ptmsp.id/login target="blank"">
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 h-80">
                 <div>
@@ -205,7 +205,7 @@
         </a>
 
         <!-- Card -->
-        <a href="http://167.205.67.248:8501/">
+        <a href="http://167.205.67.248:8501/" target="blank">
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 h-80">
                 <div>
