@@ -173,7 +173,7 @@
 
 
         <!-- Card -->
-        <a href="http://simulator.issp.id/" target="blank">
+        <a href="https://smartx-form.ramand.my.id/" target="blank">
             <div class="flex mt-10 items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 h-80">
                 <div>
                     <img class="py-3 rounded-lg object-cover h-40 w-full" src="{{ asset('assets/img/Dashboard/Smart City.JPG') }}" alt="">
