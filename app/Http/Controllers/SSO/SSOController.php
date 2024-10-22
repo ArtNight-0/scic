@@ -23,11 +23,11 @@ class SSOController extends Controller
             "state" => $state,
             "prompt" => true
         ]);
-        // dd("masuk login client");
         return redirect(config("auth.sso_host")."/oauth/authorize?" . $query);
     }
     public function getCallback(Request $request)
     {
+        // dd("masuk login client");
         $state = $request->session()->pull("state");
 
         throw_unless(strlen($state) > 0 && $state == $request->state, InvalidArgumentException::class);
@@ -37,69 +37,55 @@ class SSOController extends Controller
             [
                 "grant_type" => "authorization_code",
                 "client_id" => config("auth.client_id"),
-                "client_secret" => "Y9hYGJM4a3lbK7ruW8K8eGImkrmP2JEpsLjgm6rM",
+                "client_secret" => config("auth.client_secret"),
                 "redirect_uri" => config("auth.callback"),
                 "code" => $request->code
             ]
         );
         $request->session()->put($response->json());
+        // dd("ada");
         return redirect(route("sso.connect"));
     }
     public function connectUser(Request $request)
     {
-        // Mendapatkan access_token dari session
         $access_token = $request->session()->get("access_token");
-
-        // Mengambil informasi pengguna dari server SSO
         $response = Http::withHeaders([
             "Accept" => "application/json",
             "Authorization" => "Bearer " . $access_token
-        ])->get(config("auth.sso_host")."/api/user");
-
+        ])->get(config("auth.sso_host") .  "/api/user");
         $userArray = $response->json();
 
+        // dd($userArray,$response->status(),$access_token);
         try {
-            // Mengambil email dari response
             $email = $userArray['email'];
         } catch (\Throwable $th) {
             return redirect("login")->withError("Failed to get login information! Try again.");
         }
-
-        // Mencari user di database berdasarkan email
         $user = User::where("email", $email)->first();
-
-        // Jika user tidak ditemukan, buat user baru
         if (!$user) {
             $user = new User;
             $user->name = $userArray['name'];
             $user->email = $userArray['email'];
             $user->email_verified_at = $userArray['email_verified_at'];
-
-            // Tidak menyimpan password, karena login bergantung pada server SSO
-            // $user->password = null;  // atau bisa dibiarkan kosong
-
             $user->save();
         }
-
-        // Login user tanpa memerlukan password lokal
         Auth::login($user);
-
         return redirect(route("dashboard"));
-        //  // Mencari user di database berdasarkan email
-        //     $user = User::where("email", $email)->first();
+         // Mencari user di database berdasarkan email
+            $user = User::where("email", $email)->first();
 
-        //     // Jika user tidak ditemukan, buat user baru
-        //     if (!$user) {
-        //         $user = new User;
-        //         $user->name = $userArray['name'];
-        //         $user->email = $userArray['email'];
-        //         $user->email_verified_at = $userArray['email_verified_at'];
+            // Jika user tidak ditemukan, buat user baru
+            if (!$user) {
+                $user = new User;
+                $user->name = $userArray['name'];
+                $user->email = $userArray['email'];
+                $user->email_verified_at = $userArray['email_verified_at'];
 
-        //         // Tambahkan password acak yang dienkripsi
-        //         $user->password = bcrypt(Str::random(16));
+                // Tambahkan password acak yang dienkripsi
+                $user->password = bcrypt(Str::random(16));
 
-        //         $user->save();
-        //     }
+                $user->save();
+            }
     }
 
 }
