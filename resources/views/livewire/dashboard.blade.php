@@ -36,8 +36,8 @@
                                         <a href="https://smartx-form.ramand.my.id/" target="blank">
                                             <div class="card head-cards">
                                                 <div class="container">
-                                                    <img src="{{ asset('assets/img/Dashboard/image.png') }}" alt="Thumbnail"
-                                                        class="thumbnail">
+                                                    <img src="{{ asset('assets/img/Dashboard/image.png') }}"
+                                                        alt="Thumbnail" class="thumbnail">
                                                     <h3 class="card-title mt-3">Smart City Simulator</h3>
 
                                                     <div class="content">
@@ -48,7 +48,8 @@
                                                             efisiensi dan kenyamanan
                                                             dalam sistem perkotaan.
                                                         </p>
-                                                        <img src="{{ asset('assets/img/Dashboard/arrow.png') }}" class="arrow-icon" alt="">
+                                                        <img src="{{ asset('assets/img/Dashboard/arrow.png') }}"
+                                                            class="arrow-icon" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -58,8 +59,8 @@
                                         <a href="http://167.205.67.248:8501/" target="blank">
                                             <div class="card head-cards">
                                                 <div class="container">
-                                                    <img src="{{ asset('assets/img/Dashboard/image.png') }}" alt="Thumbnail"
-                                                        class="thumbnail">
+                                                    <img src="{{ asset('assets/img/Dashboard/image.png') }}"
+                                                        alt="Thumbnail" class="thumbnail">
                                                     <h3 class="card-title mt-3">Smart Mobility Simulator</h3>
 
                                                     <div class="content">
@@ -70,7 +71,8 @@
                                                             efisiensi dan kenyamanan
                                                             dalam sistem perkotaan.
                                                         </p>
-                                                        <img src="{{ asset('assets/img/Dashboard/arrow.png') }}" class="arrow-icon" alt="">
+                                                        <img src="{{ asset('assets/img/Dashboard/arrow.png') }}"
+                                                            class="arrow-icon" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,8 +82,8 @@
                                         <a href="https://smart-building.ptmsp.id/dashboard" target="blank">
                                             <div class="card head-cards">
                                                 <div class="container">
-                                                    <img src="{{ asset('assets/img/Dashboard/image.png') }}" alt="Thumbnail"
-                                                        class="thumbnail">
+                                                    <img src="{{ asset('assets/img/Dashboard/image.png') }}"
+                                                        alt="Thumbnail" class="thumbnail">
                                                     <h3 class="card-title mt-3">Smart Building Simulator</h3>
 
                                                     <div class="content">
@@ -92,7 +94,8 @@
                                                             efisiensi dan kenyamanan
                                                             dalam sistem perkotaan.
                                                         </p>
-                                                        <img src="{{ asset('assets/img/Dashboard/arrow.png') }}" class="arrow-icon" alt="">
+                                                        <img src="{{ asset('assets/img/Dashboard/arrow.png') }}"
+                                                            class="arrow-icon" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,8 +105,8 @@
                                         <a href="#" target="blank">
                                             <div class="card head-cards">
                                                 <div class="container">
-                                                    <img src="{{ asset('assets/img/Dashboard/image.png') }}" alt="Thumbnail"
-                                                        class="thumbnail">
+                                                    <img src="{{ asset('assets/img/Dashboard/image.png') }}"
+                                                        alt="Thumbnail" class="thumbnail">
                                                     <h3 class="card-title mt-3">Smart Healthcare Simulator</h3>
 
                                                     <div class="content">
@@ -114,7 +117,8 @@
                                                             efisiensi dan kenyamanan
                                                             dalam sistem perkotaan.
                                                         </p>
-                                                        <img src="{{ asset('assets/img/Dashboard/arrow.png') }}" class="arrow-icon" alt="">
+                                                        <img src="{{ asset('assets/img/Dashboard/arrow.png') }}"
+                                                            class="arrow-icon" alt="">
                                                     </div>
                                                 </div>
                                             </div>

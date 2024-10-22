@@ -23,6 +23,7 @@ class SSOController extends Controller
             "state" => $state,
             "prompt" => true
         ]);
+        // dd($query);
         return redirect(config("auth.sso_host")."/oauth/authorize?" . $query);
     }
     public function getCallback(Request $request)
@@ -43,10 +44,10 @@ class SSOController extends Controller
             ]
         );
         $request->session()->put($response->json());
-        // dd("ada");
+        // dd($response->json(),$response->status());
         return redirect(route("sso.connect"));
     }
-    public function connectUser(Request $request)
+ public function connectUser(Request $request)
     {
         $access_token = $request->session()->get("access_token");
         $response = Http::withHeaders([
@@ -55,37 +56,30 @@ class SSOController extends Controller
         ])->get(config("auth.sso_host") .  "/api/user");
         $userArray = $response->json();
 
-        // dd($userArray,$response->status(),$access_token);
         try {
             $email = $userArray['email'];
         } catch (\Throwable $th) {
             return redirect("login")->withError("Failed to get login information! Try again.");
         }
+
+        // Mencari user di database berdasarkan email
         $user = User::where("email", $email)->first();
+
+        // Jika user tidak ditemukan, buat user baru
         if (!$user) {
             $user = new User;
             $user->name = $userArray['name'];
             $user->email = $userArray['email'];
             $user->email_verified_at = $userArray['email_verified_at'];
+
+            // Tambahkan password acak yang dienkripsi
+            $user->password = bcrypt(Str::random(16));
+
             $user->save();
         }
+
         Auth::login($user);
         return redirect(route("dashboard"));
-         // Mencari user di database berdasarkan email
-            $user = User::where("email", $email)->first();
-
-            // Jika user tidak ditemukan, buat user baru
-            if (!$user) {
-                $user = new User;
-                $user->name = $userArray['name'];
-                $user->email = $userArray['email'];
-                $user->email_verified_at = $userArray['email_verified_at'];
-
-                // Tambahkan password acak yang dienkripsi
-                $user->password = bcrypt(Str::random(16));
-
-                $user->save();
-            }
     }
 
 }
