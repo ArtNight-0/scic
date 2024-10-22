@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
@@ -8,53 +8,37 @@
 
     <!-- CSS -->
     <link rel="shortcut icon" href="{{ asset('assets/img/Logo/icon.png') }}" type="image/x-icon">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-
-    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <!-- END CSS -->
 
     <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
-    <script src="{{ asset('assets/js/charts-lines.js') }}" defer></script>
-    <script src="{{ asset('assets/js/charts-pie.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     @livewireStyles
-
 </head>
 
 <body>
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
 
-        <!-- Desktop sidebar -->
-        {{-- @include('layouts.sidebar') --}}
-        <!-- Mobile sidebar -->
+    <!-- HEADER -->
+    @include('components.header')
+    <!-- END HEADER -->
 
-        <!-- Backdrop (Mobile Sidebar) -->
-        {{-- @include('layouts.sidebarresponsive') --}}
+    <!-- MAIN -->
+    <main class="main-content">
+        @yield('content')
+    </main>
+    <!-- END MAIN -->
 
-        <div class="flex flex-col flex-1 w-full">
-
-            @include('layouts.header')
-
-            <main class="h-full overflow-y-auto">
-
-                @yield('content')
-
-            </main>
-
-        </div>
-
-    </div>
+    <!-- FOOTER -->
+    @include('components.footer')
+    <!-- END FOOTER -->
 
     @livewireScripts
-
 </body>
 
 </html>
