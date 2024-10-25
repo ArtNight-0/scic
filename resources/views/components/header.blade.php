@@ -12,7 +12,14 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <li>
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>
