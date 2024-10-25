@@ -33,7 +33,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <a href="https://smartx-form.ramand.my.id/" target="blank">
+                                        <a href="https://smartx-form.ramand.my.id/" target="blank" class="anchor">
                                             <div class="card head-cards">
                                                 <div class="container">
                                                     <img src="{{ asset('assets/img/Dashboard/image.png') }}" alt="Thumbnail"
@@ -55,7 +55,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <a href="http://167.205.67.248:8501/" target="blank">
+                                        <a href="http://167.205.67.248:8501/" target="blank" class="anchor">
                                             <div class="card head-cards">
                                                 <div class="container">
                                                     <img src="{{ asset('assets/img/Dashboard/image.png') }}" alt="Thumbnail"
@@ -77,7 +77,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <a href="https://smart-building.ptmsp.id/dashboard" target="blank">
+                                        <a href="https://smart-building.ptmsp.id/dashboard" target="blank" class="anchor">
                                             <div class="card head-cards">
                                                 <div class="container">
                                                     <img src="{{ asset('assets/img/Dashboard/image.png') }}" alt="Thumbnail"
@@ -99,7 +99,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <a href="#" target="blank">
+                                        <a href="#" target="blank" class="anchor">
                                             <div class="card head-cards">
                                                 <div class="container">
                                                     <img src="{{ asset('assets/img/Dashboard/image.png') }}" alt="Thumbnail"

@@ -97,11 +97,16 @@ body::before {
     background: linear-gradient(180deg, #164E63 0%, #1e7a9e 68.49%);
 }
 
+.anchor {
+    text-decoration: none;
+    color: #0f465c;
+}
+
 .head-cards {
     background: #FFFFFF;
     position: relative;
     top: 50px;
-    height: 390px !important;
+    height:400px !important;
     width: 95%;
     padding-top: 10px;
     transition: 0.1s ease;
@@ -121,7 +126,7 @@ body::before {
 .head-cards .card-title {
     font-size: 15px;
     background-color: var(--primary-color);
-    width: 65%;
+    width: 80%;
     padding: 3px;
     text-align: center;
     border-radius: 5px 5px 5px 5px;
