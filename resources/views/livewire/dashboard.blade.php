@@ -124,6 +124,29 @@
                                             </div>
                                         </a>
                                     </div>
+                                    <div class="col-md-6 mb-3">
+                                        <a href="#" target="blank">
+                                            <div class="card head-cards">
+                                                <div class="container">
+                                                    <img src="{{ asset('assets/img/Dashboard/image.png') }}"
+                                                        alt="Thumbnail" class="thumbnail">
+                                                    <h3 class="card-title mt-3">Smart Payment Simulator</h3>
+
+                                                    <div class="content">
+                                                        <p class="description">
+                                                            Simulator dapat menguji
+                                                            dan mengoptimalkan solusi
+                                                            cerdas untuk meningkatkan
+                                                            efisiensi dan kenyamanan
+                                                            dalam sistem perkotaan.
+                                                        </p>
+                                                        <img src="{{ asset('assets/img/Dashboard/arrow.png') }}"
+                                                            class="arrow-icon" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
