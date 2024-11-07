@@ -67,6 +67,11 @@ my-laravel-docker/
     └── entrypoint.sh
 ```
 
+4. Make scripts executable:
+```bash
+chmod +x scripts/backup.sh scripts/entrypoint.sh
+```
+
 
 
 ## Running the Application
