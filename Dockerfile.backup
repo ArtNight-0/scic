@@ -1,0 +1,32 @@
+# Dockerfile.backup
+FROM ubuntu:20.04
+
+# Avoid prompts from apt
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install MySQL client, cron, and other utilities
+RUN apt-get update && apt-get install -y \
+    mysql-client \
+    cron \
+    tzdata \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy backup script
+COPY scripts/backup.sh /scripts/backup.sh
+COPY scripts/entrypoint.sh /scripts/entrypoint.sh
+
+# Make scripts executable
+RUN chmod +x /scripts/backup.sh /scripts/entrypoint.sh
+
+# Create backup directory
+RUN mkdir -p /backups
+
+# Add crontab
+RUN echo "0 0 * * * /scripts/backup.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/backup-cron
+RUN chmod 0644 /etc/cron.d/backup-cron
+
+# Create log file
+RUN touch /var/log/cron.log
+
+# Run the command on container startup
+CMD ["/scripts/entrypoint.sh"]
