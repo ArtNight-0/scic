@@ -56,7 +56,7 @@ mkdir -p nginx/conf.d scripts backups
 3. Create all required files with the following structure:
 ```
 my-laravel-docker/
-├── docker-compose.yml
+├── docker compose.yml
 ├── Dockerfile
 ├── Dockerfile.backup
 ├── nginx/
@@ -89,30 +89,30 @@ DB_PASSWORD=your_password
 
 2. Start the containers:
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 3. Install Laravel dependencies:
 ```bash
-docker-compose exec app composer install
+docker compose exec app composer install
 ```
 
 4. Set up Laravel:
 ```bash
 # Generate application key
-docker-compose exec app php artisan key:generate
+docker compose exec app php artisan key:generate
 
 # Create storage link
-docker-compose exec app php artisan storage:link
+docker compose exec app php artisan storage:link
 
 # Clear config cache
-docker-compose exec app php artisan config:clear
+docker compose exec app php artisan config:clear
 
 # Run migrations
-docker-compose exec app php artisan migrate
+docker compose exec app php artisan migrate
 
 # Optional: Seed the database
-docker-compose exec app php artisan db:seed
+docker compose exec app php artisan db:seed
 ```
 
 ## Database Management
@@ -120,13 +120,13 @@ docker-compose exec app php artisan db:seed
 ### Running Migrations
 ```bash
 # Basic migration
-docker-compose exec app php artisan migrate
+docker compose exec app php artisan migrate
 
 # Fresh migration (drops all tables)
-docker-compose exec app php artisan migrate:fresh
+docker compose exec app php artisan migrate:fresh
 
 # Migration with seeding
-docker-compose exec app php artisan migrate:fresh --seed
+docker compose exec app php artisan migrate:fresh --seed
 ```
 
 ### Database Backups
@@ -134,7 +134,7 @@ Backups are automatically created daily at midnight and stored in the `backups` 
 
 To manually trigger a backup:
 ```bash
-docker-compose exec backup /scripts/backup.sh
+docker compose exec backup /scripts/backup.sh
 ```
 
 To view backup files:
@@ -147,13 +147,13 @@ ls -l backups/
 ### Permission Issues
 If you encounter permission issues:
 ```bash
-docker-compose exec app chown -R www-data:www-data storage bootstrap/cache
+docker compose exec app chown -R www-data:www-data storage bootstrap/cache
 ```
 
 ### Database Connection Issues
 Check database connection:
 ```bash
-docker-compose exec app php artisan tinker
+docker compose exec app php artisan tinker
 >>> DB::connection()->getPdo();
 ```
 
@@ -161,21 +161,21 @@ docker-compose exec app php artisan tinker
 Check container status:
 ```bash
 # View all containers
-docker-compose ps
+docker compose ps
 
 # View container logs
-docker-compose logs
+docker compose logs
 
 # View specific service logs
-docker-compose logs app
-docker-compose logs db
+docker compose logs app
+docker compose logs db
 ```
 
 ### Rebuilding
 If you need to rebuild everything:
 ```bash
-docker-compose down
-docker-compose up -d --build
+docker compose down
+docker compose up -d
 ```
 
 ## Additional Commands
@@ -183,28 +183,28 @@ docker-compose up -d --build
 ### Container Access
 ```bash
 # Access PHP container
-docker-compose exec app bash
+docker compose exec app bash
 
 # Access MySQL container
-docker-compose exec db bash
+docker compose exec db bash
 
 # Access MySQL CLI
-docker-compose exec db mysql -u root -p
+docker compose exec db mysql -u root -p
 ```
 
 ### Laravel Commands
 ```bash
 # Clear various caches
-docker-compose exec app php artisan cache:clear
-docker-compose exec app php artisan config:clear
-docker-compose exec app php artisan route:clear
-docker-compose exec app php artisan view:clear
+docker compose exec app php artisan cache:clear
+docker compose exec app php artisan config:clear
+docker compose exec app php artisan route:clear
+docker compose exec app php artisan view:clear
 
 # Create a new controller
-docker-compose exec app php artisan make:controller YourController
+docker compose exec app php artisan make:controller YourController
 
 # Create a new model
-docker-compose exec app php artisan make:model YourModel
+docker compose exec app php artisan make:model YourModel
 ```
 
 ## Contributing
