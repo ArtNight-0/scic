@@ -1,0 +1,80 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Docker
+.docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Laravel specific
+/vendor
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+.env
+.env.*
+!.env.example
+.phpunit.result.cache
+
+# Dependencies
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+composer.lock
+
+# IDE specific
+.idea
+.vscode
+*.sublime-workspace
+*.sublime-project
+_ide_helper.php
+.phpstorm.meta.php
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Testing
+/coverage
+.phpunit.cache
+phpunit.xml
+
+# Build artifacts
+/build
+/dist
+/public/build
+/public/css
+/public/js
+
+# Backup files
+*.bak
+*.swp
+*.swo
+
+# Database
+*.sqlite
+*.sqlite3
+
+# Documentation
+/docs
+README.md
+CHANGELOG.md
+CONTRIBUTING.md
+LICENSE.md
+
+# Other
+*.log
+*.zip
+*.tar
+*.gz
+*.rar
