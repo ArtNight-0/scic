@@ -55,13 +55,13 @@ class SSOController extends Controller
             "Authorization" => "Bearer " . $access_token
         ])->get(config("auth.sso_host") .  "/api/user");
         $userArray = $response->json();
-
+// dd($userArray);
         try {
             $email = $userArray['email'];
         } catch (\Throwable $th) {
             return redirect("login")->withError("Failed to get login information! Try again.");
         }
-
+// dd("masuk");
         // Mencari user di database berdasarkan email
         $user = User::where("email", $email)->first();
 

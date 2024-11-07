@@ -79,7 +79,8 @@
                                         </a>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <a href="https://smart-building.ptmsp.id/dashboard" target="blank" class="anchor">
+                                        <a href="https://smart-building.ptmsp.id/dashboard" target="blank"
+                                            class="anchor">
                                             <div class="card head-cards">
                                                 <div class="container">
                                                     <img src="{{ asset('assets/img/Dashboard/image.png') }}"
