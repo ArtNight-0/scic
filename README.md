@@ -21,46 +21,186 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+# Laravel Docker Development Environment Setup Guide
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+This guide will walk you through setting up a Laravel development environment using Docker, complete with Nginx, MySQL, and automated database backups.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Project Setup](#project-setup)
+- [Docker Configuration](#docker-configuration)
+- [Running the Application](#running-the-application)
+- [Database Management](#database-management)
+- [Troubleshooting](#troubleshooting)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Prerequisites
 
-## Laravel Sponsors
+Make sure you have the following installed on your system:
+- Docker
+- Docker Compose
+- Git (optional)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Project Setup
 
-### Premium Partners
+1. Create your project directory:
+```bash
+mkdir my-laravel-docker
+cd my-laravel-docker
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Create the necessary subdirectories:
+```bash
+mkdir -p nginx/conf.d scripts backups
+```
+
+3. Create all required files with the following structure:
+```
+my-laravel-docker/
+├── docker-compose.yml
+├── Dockerfile
+├── Dockerfile.backup
+├── nginx/
+│   └── conf.d/
+│       └── default.conf
+└── scripts/
+    ├── backup.sh
+    └── entrypoint.sh
+```
+
+
+
+## Running the Application
+
+1. Create `.env` file:
+```env
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+*DB_USERNAME cannot be root
+
+2. Start the containers:
+```bash
+docker-compose up -d --build
+```
+
+3. Install Laravel dependencies:
+```bash
+docker-compose exec app composer install
+```
+
+4. Set up Laravel:
+```bash
+# Generate application key
+docker-compose exec app php artisan key:generate
+
+# Create storage link
+docker-compose exec app php artisan storage:link
+
+# Clear config cache
+docker-compose exec app php artisan config:clear
+
+# Run migrations
+docker-compose exec app php artisan migrate
+
+# Optional: Seed the database
+docker-compose exec app php artisan db:seed
+```
+
+## Database Management
+
+### Running Migrations
+```bash
+# Basic migration
+docker-compose exec app php artisan migrate
+
+# Fresh migration (drops all tables)
+docker-compose exec app php artisan migrate:fresh
+
+# Migration with seeding
+docker-compose exec app php artisan migrate:fresh --seed
+```
+
+### Database Backups
+Backups are automatically created daily at midnight and stored in the `backups` directory.
+
+To manually trigger a backup:
+```bash
+docker-compose exec backup /scripts/backup.sh
+```
+
+To view backup files:
+```bash
+ls -l backups/
+```
+
+## Troubleshooting
+
+### Permission Issues
+If you encounter permission issues:
+```bash
+docker-compose exec app chown -R www-data:www-data storage bootstrap/cache
+```
+
+### Database Connection Issues
+Check database connection:
+```bash
+docker-compose exec app php artisan tinker
+>>> DB::connection()->getPdo();
+```
+
+### Container Issues
+Check container status:
+```bash
+# View all containers
+docker-compose ps
+
+# View container logs
+docker-compose logs
+
+# View specific service logs
+docker-compose logs app
+docker-compose logs db
+```
+
+### Rebuilding
+If you need to rebuild everything:
+```bash
+docker-compose down
+docker-compose up -d --build
+```
+
+## Additional Commands
+
+### Container Access
+```bash
+# Access PHP container
+docker-compose exec app bash
+
+# Access MySQL container
+docker-compose exec db bash
+
+# Access MySQL CLI
+docker-compose exec db mysql -u root -p
+```
+
+### Laravel Commands
+```bash
+# Clear various caches
+docker-compose exec app php artisan cache:clear
+docker-compose exec app php artisan config:clear
+docker-compose exec app php artisan route:clear
+docker-compose exec app php artisan view:clear
+
+# Create a new controller
+docker-compose exec app php artisan make:controller YourController
+
+# Create a new model
+docker-compose exec app php artisan make:model YourModel
+```
 
 ## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Feel free to fork this setup and customize it for your needs. If you find any issues or have improvements, please submit a pull request.
