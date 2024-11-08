@@ -61,7 +61,7 @@ services:
             - ./backups:/backups
             - ./scripts:/scripts
         environment:
-            MYSQL_HOST: db_scic
+            MYSQL_HOST: scic
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
             BACKUP_RETENTION_DAYS: 7
         networks:
