@@ -29,5 +29,4 @@ RUN chmod 0644 /etc/cron.d/backup-cron
 RUN touch /var/log/cron.log
 
 # Run the command on container startup
-RUN chmod +x ./scripts/entrypoint.sh
 CMD ["/scripts/entrypoint.sh"]

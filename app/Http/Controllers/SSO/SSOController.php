@@ -18,6 +18,7 @@ class SSOController extends Controller
         $query = http_build_query([
             "client_id" =>  config("auth.client_id"),
             "redirect_uri" => config("auth.callback"),
+
             "response_type" => "code",
             "scope" => config("auth.scopes"),
             "state" => $state,
@@ -25,6 +26,8 @@ class SSOController extends Controller
         ]);
         // dd($query);
         return redirect(config("auth.sso_host")."/oauth/authorize?" . $query);
+        // dd("masuk login client");
+
     }
     public function getCallback(Request $request)
     {
@@ -54,6 +57,7 @@ class SSOController extends Controller
             "Accept" => "application/json",
             "Authorization" => "Bearer " . $access_token
         ])->get(config("auth.sso_host") .  "/api/user");
+
         $userArray = $response->json();
 // dd($userArray);
         try {

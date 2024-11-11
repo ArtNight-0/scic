@@ -1,78 +1,78 @@
 # docker-compose.yml
-version: "3.8"
+version: '3.8'
 
 services:
-    # PHP + Laravel Application
-    app:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        container_name: laravel_app
-        restart: unless-stopped
-        working_dir: /var/www/
-        volumes:
-            - ./:/var/www
-        networks:
-            - laravel_network
-        depends_on:
-            - db
+  # PHP + Laravel Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - laravel_network
+    depends_on:
+      - db
 
-    # Nginx Service
-    nginx:
-        image: nginx:alpine
-        container_name: laravel_nginx
-        restart: unless-stopped
-        ports:
-            - "9090:80"
-        volumes:
-            - ./:/var/www
-            - ./nginx/conf.d:/etc/nginx/conf.d/
-        networks:
-            - laravel_network
-        depends_on:
-            - app
+  # Nginx Service
+  nginx:
+    image: nginx:alpine
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+    networks:
+      - laravel_network
+    depends_on:
+      - app
 
-    # MySQL Service
-    db:
-        image: mysql:8.0
-        container_name: laravel_db
-        restart: unless-stopped
-        environment:
-            MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_USER: ${DB_USERNAME}
-            SERVICE_TAGS: dev
-            SERVICE_NAME: mysql
-        volumes:
-            - mysql_data:/var/lib/mysql
-        ports:
-            - "3306:3306"
-        networks:
-            - laravel_network
+  # MySQL Service
+  db:
+    image: mysql:8.0
+    container_name: laravel_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel_network
 
-    # Backup Service
-    backup:
-        build:
-            context: .
-            dockerfile: Dockerfile.backup
-        container_name: mysql_backup
-        volumes:
-            - ./backups:/backups
-            - ./scripts:/scripts
-        environment:
-            MYSQL_HOST: scic
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-            BACKUP_RETENTION_DAYS: 7
-        networks:
-            - laravel_network
-        depends_on:
-            - db
+  # Backup Service
+  backup:
+    build:
+      context: .
+      dockerfile: Dockerfile.backup
+    container_name: mysql_backup
+    volumes:
+      - ./backups:/backups
+      - ./scripts:/scripts
+    environment:
+      MYSQL_HOST: db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      BACKUP_RETENTION_DAYS: 7
+    networks:
+      - laravel_network
+    depends_on:
+      - db
 
 networks:
-    laravel_network:
-        driver: bridge
+  laravel_network:
+    driver: bridge
 
 volumes:
-    mysql_data:
-        driver: local
+  mysql_data:
+    driver: local
