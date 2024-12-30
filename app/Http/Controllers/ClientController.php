@@ -26,7 +26,7 @@ class ClientController extends Controller
         ]);
 
         // Redirect to the OAuth authorization page
-        return redirect('http://dashboard-sso.ramand.my.id/auth/authorize?' . $query);
+        return redirect('http://sccic-ssoserver.test//auth/authorize?' . $query);
         // dd($query);
     }
     
@@ -41,7 +41,7 @@ class ClientController extends Controller
         }
 
         // Tukar authorization code dengan access token
-        $response = Http::asForm()->post('http://dashboard-sso.ramand.my.id/auth/token', [
+        $response = Http::asForm()->post('http://sccic-ssoserver.test/auth/token', [
             'grant_type' => 'authorization_code',
             'client_id' => env('OAUTH_CLIENT_ID'),
             'client_secret' => env('OAUTH_CLIENT_SECRET'),

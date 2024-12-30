@@ -33,7 +33,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <a href="https://smartx-form.ramand.my.id/" target="blank" class="anchor">
+                                        <a href="http://localhost:3001/" target="blank" class="anchor">
                                             <div class="card head-cards">
                                                 <div class="container">
                                                     <img src="{{ asset('assets/img/Dashboard/image.png') }}"
@@ -56,7 +56,8 @@
                                         </a>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <a href="http://167.205.67.248:8501/" target="blank" class="anchor">
+                                        {{-- <a href="http://167.205.67.248:8501/" target="blank" class="anchor"> --}}
+                                        <a href="http://xsmart-mobility.test" target="blank" class="anchor">
                                             <div class="card head-cards">
                                                 <div class="container">
                                                     <img src="{{ asset('assets/img/Dashboard/image.png') }}"

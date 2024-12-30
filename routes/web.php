@@ -25,24 +25,26 @@ use App\Livewire\Users;
 use App\Livewire\ApiUserComponent;
 
 
+Route::get('/dashboard', Dashboard::class)->name('dashboard');
+
 Route::get('/', function () {
     return view('auth/login');
 });
 // Route::get('/auth', function (Request $request) {
-//     $client = $request->user()->clients;
-//     return view('vendor.passport.authorize', [
-//         'client' => $client,
-//         'scopes' => [],
-//         'authToken' => Str::random(40),
-//         'request' => $request
-//     ]);
-// });
-
+    //     $client = $request->user()->clients;
+    //     return view('vendor.passport.authorize', [
+        //         'client' => $client,
+        //         'scopes' => [],
+        //         'authToken' => Str::random(40),
+        //         'request' => $request
+        //     ]);
+        // });
+        
+// Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/manajemen-user', ApiUserComponent::class)->middleware(['auth', 'verified'])->name('management-user');
 
 Route::get('/manajemen-dashboard', DashboardManagement::class)->middleware(['auth','verified'])->name('dashboard-managment');
 
-Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/user', Users::class)->middleware(['auth', 'verified'])->name('user');
 
 Route::get('/client', function (Request $request) {
@@ -89,10 +91,10 @@ Route::get("/sso/login", [SSOController::class, 'getLogin'])->name("sso.login");
 Route::get("/auth/callback", [SSOController::class, 'getCallback'])->name("sso.callback");
 Route::get("/sso/connect", [SSOController::class, 'connectUser'])->name("sso.connect");
 
-Route::middleware(['checkSSOToken'])->group(function () {
-    Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
+// Route::middleware(['checkSSOToken'])->group(function () {
+//     Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 
-});
+// });
 
 
 // Auth::routes(['register' => false, 'reset' => false ]);

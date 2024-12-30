@@ -40,7 +40,7 @@ class ApiUserComponent extends Component
 
     // public function fetchData()
     // {
-    //     $response = Http::get('https://sso-dashboard.ramand.my.id/api/user-get');
+    //     $response = Http::get('https://http://sccic-ssoserver.test/api/user-get');
     //     $jsonResponse = $response->json();
 
     //     if (is_array($jsonResponse) && isset($jsonResponse['data'])) {

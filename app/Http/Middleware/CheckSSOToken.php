@@ -26,19 +26,20 @@ class CheckSSOToken
         // dd($accessToken);
         
         // Kirim permintaan ke server SSO untuk mengecek validitas token
-        $response = Http::post('http://sso-dashboard.ramand.my.id/oauth/check_token', [
+        $response = Http::post('http://sccic-ssoserver.test/oauth/check_token', [
             'token' => $accessToken
         ]);
         
-        dd($response->status());
-        dd($accessToken);
+        // dd($response->status());
+        // dd($accessToken);
         
         // Jika token tidak valid atau respons gagal, redirect ke logout
-        if ($response->failed() || !$response->json()['valid']) {
-            dd($response->json());
-            return redirect()->route('logout');
-        }
-
+        // if ($response->failed() || !$response->json()['valid']) {
+        //     dd($response->json());
+        //     return redirect()->route('logout');
+        // }
+        
+            // dd($response->json());
         // Jika token valid, lanjutkan request
         return $next($request);
     }
